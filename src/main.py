@@ -1,6 +1,9 @@
 import sqlite3
 from sklearn.metrics.pairwise import cosine_similarity
 import numpy as np
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Create in-memory SQLite DB (or use 'cart.db' to save to file)
 conn = sqlite3.connect(":memory:")  # Use 'cart.db' for persistent file
@@ -53,7 +56,7 @@ print("-----------------Starting RAG building----------------")
 import getpass
 import os
 
-os.environ["GOOGLE_API_KEY"] = "AIzaSyBXouquUMxC-acLs4HK5ajIMgaQX06R630"
+os.environ["GOOGLE_API_KEY"] = os.getenv("GOOGLE_API_KEY")
 
 from langchain.chat_models import init_chat_model
 
@@ -151,7 +154,7 @@ def retrieve_best_product_metadata(user_query, top_k=1):
 print("--------------------Intent Recognition configurating---------------------")
 import google.generativeai as genai
 
-genai.configure(api_key="AIzaSyBXouquUMxC-acLs4HK5ajIMgaQX06R630")
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 model = genai.GenerativeModel("gemini-1.5-pro")
 
 def get_best_product_info(user_query):
@@ -181,7 +184,7 @@ def get_best_product_info(user_query):
 import google.generativeai as genai
 
 # Configure Gemini
-genai.configure(api_key="AIzaSyBXouquUMxC-acLs4HK5ajIMgaQX06R630")  # Replace with your actual API key
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))  # Replace with your actual API key
 
 # Load Gemini model
 model = genai.GenerativeModel("gemini-1.5-pro")
@@ -236,7 +239,7 @@ from PIL import Image
 import io
 
 # Setup Gemini
-genai.configure(api_key="AIzaSyBXouquUMxC-acLs4HK5ajIMgaQX06R630")
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 
 # Load Gemini multimodal model (for image + text input)
 model = genai.GenerativeModel("gemini-1.5-pro")
